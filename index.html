@@ -93,4 +93,26 @@
                 <div class="price-tag" style="margin: 15px 0;">استثمار مستقبلك بـ <span class="amount">1$</span> فقط <span style="font-size: 0.85rem; color: var(--text-gray);">(250 دج)</span></div>
                 
                 <div class="payment-methods">
-                    <p style="font-size: 
+                    <p style="font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; color: var(--text-white);">اختر وسيلة الدفع السريعة لتفعيل خطتك:</p>
+                    <div class="payment-options">
+                        <button class="btn-pay" onclick="triggerPayment('BaridiMob')">
+                            <i class="fas fa-money-bill-wave"></i> بريدي موب (BaridiMob)
+                        </button>
+                        <button class="btn-pay" onclick="triggerPayment('RedotPay')">
+                            <i class="fas fa-credit-card"></i> بطاقة RedotPay / Visa
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary" onclick="restartQuiz()" style="margin-top: 20px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); box-shadow: none;">
+                إعادة الاختبار <i class="fas fa-redo" style="margin-right: 8px;"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ربط محرك التشغيل والمنطق البرمجي السيكومتري -->
+    <script src="script.js"></script>
+</body>
+</html>
