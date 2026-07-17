@@ -1,0 +1,145 @@
+/* --- المتغيرات المتقدمة والتصميم الزجاجي --- */
+:root {
+    --primary: #8a2be2;
+    --secondary: #4a00e0;
+    --accent: #00ffff;
+    --bg-dark: #09070f;
+    --card-blur: rgba(255, 255, 255, 0.05);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-white: #ffffff;
+    --text-gray: #a5a1b8;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at center, #1e1035 0%, var(--bg-dark) 100%);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    overflow-x: hidden;
+}
+
+/* --- الشاشة الافتتاحية (Splash Screen) --- */
+.splash-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #09070f;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease;
+}
+.splash-screen.fade-out { opacity: 0; pointer-events: none; transform: scale(1.05); }
+.splash-content { text-align: center; }
+.splash-logo { font-size: 4rem; color: var(--accent); margin-bottom: 20px; text-shadow: 0 0 30px rgba(0, 255, 255, 0.4); }
+.fa-spin-slow { animation: spin 6s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.splash-title { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+.splash-title .highlight, 
+.brand-text { background: linear-gradient(45deg, var(--accent), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+.splash-subtitle { color: var(--text-gray); font-size: 1rem; margin-bottom: 25px; }
+.loader-bar { width: 200px; height: 4px; background: rgba(255, 255, 255, 0.08); border-radius: 10px; margin: 0 auto; overflow: hidden; }
+.loader-progress { width: 0%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); box-shadow: 0 0 10px var(--accent); animation: load 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes load { 0% { width: 0%; } 100% { width: 100%; } }
+
+/* --- الحاوية الرئيسية المتجاوبة --- */
+.app-container {
+    width: 100%;
+    max-width: 620px; /* جعل الحاوية أكثر تماسكاً وأناقة */
+    background: var(--card-blur);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 35px 25px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s ease;
+}
+.hidden { display: none !important; opacity: 0; }
+
+.progress-container { width: 100%; height: 5px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin-bottom: 25px; overflow: hidden; }
+.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.screen { display: none; }
+.screen.active { display: block; animation: fadeInUp 0.5s ease forwards; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.welcome-box h1 { font-size: 2rem; margin: 15px 0; }
+.badge { background: rgba(138, 43, 226, 0.2); border: 1px solid var(--primary); color: #cda2ff; padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; }
+.user-info-form { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+.user-info-form input { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); padding: 14px; border-radius: 12px; color: white; font-size: 0.95rem; outline: none; transition: border-color 0.3s; }
+.user-info-form input:focus { border-color: var(--accent); }
+
+.btn-primary { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; padding: 14px 30px; font-size: 1rem; font-weight: 600; border-radius: 12px; cursor: pointer; box-shadow: 0 8px 16px rgba(138, 43, 226, 0.3); transition: all 0.3s; width: 100%; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 20px rgba(138, 43, 226, 0.5); }
+
+/* --- تعديل وتصغير مربعات الخيارات والأسئلة لتناسب الهاتف تماماً --- */
+#questionNumber { font-size: 0.85rem; color: var(--accent); font-weight: bold; display: block; margin-bottom: 8px; }
+.question-text { font-size: 1.2rem; font-weight: 600; line-height: 1.5; margin-bottom: 20px; }
+.options-list { display: flex; flex-direction: column; gap: 10px; } /* تقليل الفراغ بين الخيارات */
+
+.option-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 12px 18px; /* تصغير الحواف الداخلية لتبدو متوسطة وأنيقة */
+    font-size: 0.95rem;  /* حجم خط مريح ومتناسق للموبايل */
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.option-card:hover { background: rgba(138, 43, 226, 0.15); border-color: var(--primary); transform: translateX(-3px); }
+
+/* كروت النتائج */
+.hobby-card { background: rgba(0, 0, 0, 0.2); border-radius: 14px; padding: 18px; margin-bottom: 12px; border-left: 5px solid var(--accent); }
+.hobby-card.outdoor { border-left-color: #ff7675; }
+.hobby-card.indoor { border-left-color: #00cec9; }
+.hobby-card.skill { border-left-color: #ffeaa7; }
+.hobby-type-tag { font-size: 0.75rem; color: var(--accent); font-weight: bold; margin-bottom: 4px; display: block; }
+.hobby-card h3 { font-size: 1.15rem; margin-bottom: 6px; }
+.hobby-card p { font-size: 0.9rem; color: var(--text-gray); line-height: 1.4; }
+
+/* قسم البيع الدفع */
+.premium-upsell-card { background: linear-gradient(135deg, rgba(42, 11, 84, 0.4), rgba(9, 7, 15, 0.6)); border: 1px solid var(--primary); border-radius: 16px; padding: 20px; margin-top: 25px; text-align: center; }
+.premium-badge { background: #ffd700; color: #000; display: inline-block; padding: 3px 10px; border-radius: 50px; font-size: 0.75rem; font-weight: bold; margin-bottom: 10px; }
+.price-tag { font-size: 1.1rem; margin: 10px 0; }
+.price-tag .amount { font-size: 1.8rem; font-weight: bold; color: #ffd700; }
+.payment-options { display: flex; gap: 10px; margin-top: 12px; }
+.btn-pay { flex: 1; background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border-color); color: white; padding: 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.3s; }
+.btn-pay:hover { background: var(--text-white); color: var(--bg-dark); }
+
+/* --- نظام النوافذ المنبثقة الاحترافي للدفع (Modal System) --- */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.modal.active { opacity: 1; pointer-events: auto; }
+.modal-content {
+    background: #140f26; border: 1px solid var(--primary);
+    padding: 25px; border-radius: 20px; width: 90%; max-width: 420px;
+    text-align: center; position: relative; animation: modalScale 0.3s ease forwards;
+}
+@keyframes modalScale { from { transform: scale(0.9); } to { transform: scale(1); } }
+.close-modal { position: absolute; top: 12px; right: 15px; font-size: 1.3rem; color: var(--text-gray); cursor: pointer; }
+.rip-box { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px; font-family: monospace; font-size: 1.1rem; color: var(--accent); margin: 15px 0; display: flex; justify-content: space-between; align-items: center; border: 1px dashed rgba(255,255,255,0.2); }
+.btn-copy { background: var(--primary); border: none; color: white; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+
+@media (max-width: 480px) {
+    .app-container { padding: 25px 15px; border-radius: 18px; }
+    .welcome-box h1 { font-size: 1.6rem; }
+    .payment-options { flex-direction: column; gap: 8px; }
+    .option-card { padding: 10px 14px; font-size: 0.9rem; } /* تصغير ممتاز ومحكم للهوا

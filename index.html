@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شغف 360 | رادار تحليل الشخصية والهوايات</title>
+    <!-- استدعاء خطوط جوجل الأنيقة -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ربط ملف التصميم -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  
+    <div class="splash-screen" id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo"><i class="fas fa-radar fa-spin-slow"></i></div>
+            <h1 class="splash-title">شغف <span class="highlight">360</span></h1>
+            <p class="splash-subtitle">جاري تشغيل رادار تحليل الهوايات الشخصية للطلاب...</p>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الحاوية الرئيسية للموقع -->
+    <div class="app-container hidden" id="app-main">
+        
+        <!-- شريط التقدم العلوي أثناء الأسئلة -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- 2. الشاشة الترحيبية واستمارة بيانات الطالب -->
+        <div class="screen active" id="welcomeScreen">
+            <div class="welcome-box" style="text-align: center;">
+                <span class="badge"><i class="fas fa-sparkles"></i> خوارزمية سيكومترية ذكية</span>
+                <h1 class="brand-text">اكتشف شغفك الخفي اليوم</h1>
+                <p style="color: var(--text-gray); line-height: 1.6; font-size: 0.95rem;">
+                    أجب عن 20 سؤالاً نفسياً سريعاً مصمماً خصيصاً للشباب والطلاب، ليعطيك رادار شغف 360 أدق 3 هوايات تناسب جيناتك الشخصية والعملية!
+                </p>
+            </div>
+
+            <div class="user-info-form">
+                <label style="font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: -5px;">الاسم الكريم:</label>
+                <input type="text" id="userName" placeholder="اكتب اسمك هنا..." required>
+                
+                <label style="font-size: 0.85rem; color: var(--accent); font-weight: bold; margin-bottom: -5px;">بريدك الإلكتروني (لتلقي التقرير كاملاً):</label>
+                <input type="email" id="userEmail" placeholder="name@example.com" required>
+            </div>
+
+            <button class="btn-primary" onclick="startQuiz()">
+                ابدأ رحلة الاستكشاف الآن <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+            </button>
+        </div>
+
+        <!-- 3. شاشة الأسئلة الديناميكية المتجاوبة -->
+        <div class="screen" id="quizScreen">
+            <span id="questionNumber">تحليل شغف 360 - سؤال 1 من 20</span>
+            <h2 class="question-text" id="questionText">جاري تحميل السؤال الأول...</h2>
+            
+            <!-- قائمة الخيارات (تظهر بحجم متوسط وأنيق للموبايل عبر الـ CSS المعدل) -->
+            <div class="options-list" id="optionsList">
+                <!-- المربعات تضخ هنا تلقائياً بواسطة سكريبت المحرك -->
+            </div>
+        </div>
+
+        <!-- 4. شاشة النتيجة وتحليل الهوايات الثلاث المدفوعة والمجانية -->
+        <div class="screen" id="resultScreen">
+            <div class="results-header" style="text-align: center; margin-bottom: 20px;">
+                <div class="success-icon" style="font-size: 3rem; color: var(--accent); margin-bottom: 10px;">
+                    <i class="fas fa-radar fa-pulse"></i>
+                </div>
+                <h2 class="brand-text">تقرير شغف 360 جاهز!</h2>
+                <p id="userGreeting" style="color: var(--text-gray); font-size: 0.95rem; line-height: 1.5; margin-top: 10px;"></p>
+            </div>
+            
+            <div class="hobby-results" id="hobbyResults">
+                <!-- كروت الهوايات الـ 3 تظهر هنا ديناميكياً بحجم متوسط ومريح -->
+            </div>
+
+            <!-- قسم الخطة المدفوعة بـ 1 دولار -->
+            <div class="premium-upsell-card">
+                <div class="premium-badge"><i class="fas fa-rocket"></i> تحدي الـ 30 يوماً من شغف 360</div>
+                <h3>حوّل هوايتك الجديدة إلى احتراف حقيقي 🎯</h3>
+                <p style="font-size: 0.9rem; color: var(--text-gray); line-height: 1.5; margin: 10px 0;">
+                    لا تتوقف عند المعرفة فقط! مقابل **1 دولار فقط** (أو ما يعادلها بالدينار)، احصل على خطة تدريبية يومية كاملة ومصممة من الصفر مخصصة للطلاب والمراهقين لتبدأ ممارسة هوايتك فوراً وبأقل التكاليف الممكنة.
+                </p>
+                <div class="price-tag" style="margin: 15px 0;">استثمار مستقبلك بـ <span class="amount">1$</span> فقط <span style="font-size: 0.85rem; color: var(--text-gray);">(250 دج)</span></div>
+                
+                <div class="payment-methods">
+                    <p style="font-size: 
